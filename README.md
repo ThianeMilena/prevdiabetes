@@ -1,4 +1,4 @@
-🩺 **PrevDiabetes**
+**PrevDiabetes** 🩺
 
 **ℹ️ Sobre o Projeto**
 
