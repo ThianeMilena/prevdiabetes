@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Informações do Paciente</title>
+    <style>
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 0;
+            height: 100vh;
+            font-family: 'Arial', sans-serif;
+            background-color: rgba(3, 37, 22, 0.979);
+        }
+
+        .container {
+            text-align: center;
+            padding: 20px;
+            border: 1px solid rgba(35, 114, 78, 0.979);
+            border-radius: 15px;
+            background-color: rgba(35, 114, 78, 0.979);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            width: 400px;
+            max-height: 600px; 
+            overflow-y: auto; 
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin-top: 20px;
+        }
+
+        label {
+            text-align: left;
+        }
+
+        select, input, button {
+            width: 100%;
+            padding: 8px;
+            box-sizing: border-box;
+            border: 1px solid rgba(3, 37, 22, 0.979);
+            border-radius: 4px;
+        }
+
+        button {
+            background-color: rgba(3, 37, 22, 0.979);
+            color: #fff;
+            cursor: pointer;
+        }
+
+        h2 {
+            margin-bottom: 10px;
+            color: rgba(1, 27, 16, 0.979);
+        }
+
+        p {
+            margin-top: 10px;
+            font-weight: bold;
+            font-size: 18px;
+            color: rgba(255, 255, 255, 0.979);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Informações do Paciente</h2>
+        <form method="post" action="{% url 'receber_dados_paciente' %}">
+            {% csrf_token %}
+            <label for="age">Idade:</label>
+            <input type="number" id="age" name="age" required><br>
+
+            <label for="bmi">Índice de Massa Corporal (BMI):</label>
+            <input type="number" step="0.1" id="bmi" name="bmi" required><br>
+
+            <label for="HbA1c_level">Nível de HbA1c:</label>
+            <input type="number" step="0.1" id="HbA1c_level" name="HbA1c_level" required><br>
+
+            <label for="blood_glucose_level">Nível de Glicose no Sangue:</label>
+            <input type="number" step="0.1" id="blood_glucose_level" name="blood_glucose_level" required><br>
+
+            <button type="submit">Enviar</button>
+        </form>
+
+        <h2>Resultado da Previsão</h2>
+        <p id="resultado-previsao">{% if resultado_previsao == True %} Diabetes Detectado {% else %} Sem Diabetes Detectado {% endif %}</p>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const form = document.querySelector('form');
+            form.addEventListener('submit', function(event) {
+                event.preventDefault();
+    
+                const formData = new FormData(form);
+    
+                fetch('{% url "receber_dados_paciente" %}', {
+                    method: 'POST',
+                    body: formData,
+                    headers: {
+                        'X-CSRFToken': '{{ csrf_token }}',
+                    },
+                })
+                .then(response => response.json())
+                .then(data => {
+                    const resultadoPrevisao = data.resultado_previsao;
+     
+                    if (resultadoPrevisao === true) {
+                        const resultadoElement = document.getElementById('resultado-previsao');
+                        resultadoElement.textContent = 'Diabetes Detectado';
+                    } else {
+                        const resultadoElement = document.getElementById('resultado-previsao');
+                        resultadoElement.textContent = 'Sem Diabetes Detectado';
+                    }
+                })
+                .catch(error => {
+                    console.error('Erro ao enviar solicitação:', error);
+                });
+            });
+        });
+    </script>    
+</body>
+</html>
