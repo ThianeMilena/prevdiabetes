@@ -33,16 +33,3 @@ def fazer_previsao(modelo, dados):
     except Exception as e:
         print(f'Erro na previsão: {str(e)}')
         return None
-
-
-
-
-
-
-
-
-
-
-
-
-
