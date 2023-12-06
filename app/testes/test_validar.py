@@ -36,6 +36,13 @@ class TestaAceitarIdade(unittest.TestCase):
         actual_result = aceitar_idade.validar_idade(-5)
         self.assertEqual(actual_result, -5)
 
+# Teste para validar se o sistema recebe idade inválida
+
+    def test_aceitar_idade_invalida(self):
+       aceitar_idade = AceitarIdade(None)
+       actual_result = aceitar_idade.validar_idade(150)
+       self.assertEqual(actual_result, 150)
+
 
 class TestaAceitarImc(unittest.TestCase):
 

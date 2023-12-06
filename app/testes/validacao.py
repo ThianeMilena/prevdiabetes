@@ -12,6 +12,8 @@ class AceitarIdade:
                raise ValueError("A idade inserida não é válida")
           elif age < 0:
                raise ValueError("A idade inserida não pode ser negativa")
+          elif age > 120:
+               raise ValueError("A idade inserida não é válida")
           return age
      
      
