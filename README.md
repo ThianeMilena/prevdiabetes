@@ -2,7 +2,7 @@
 
 **ℹ️ Sobre o Projeto**
 
-O PrevDiabetes é uma aplicação web Django que faz uso de um modelo de aprendizado de máquina treinado para fornecer previsões sobre a probabilidade de diabetes com base em informações fornecidas pelo usuário.
+O PrevDiabetes é um projeto acadêmico desenvolvido como parte de disciplinas relacionadas a backend, data science, inteligência artificial e teste de software na faculdade. Trata-se de uma aplicação web Django que utiliza um modelo de aprendizado de máquina treinado para fornecer previsões sobre a probabilidade de diabetes com base nas informações fornecidas pelo usuário.
 
 **📋 Funcionalidades Principais**
 
